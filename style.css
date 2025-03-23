@@ -1,9 +1,13 @@
+*{
+    font-family: 'Kanit', sans-serif;
+}
 body {
     background-image: url(./images/bg.jpg);
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    font-family: 'Kanit', sans-serif;
+    
+    
 }
 
 .container-fluid {
@@ -58,13 +62,63 @@ body {
     border: 1px solid #ffffffa9;
 }
 
+/* Navbar Styling */
 .navbar-custom {
-    padding: 10px 20px;
-    border-radius: 20px;
-    margin: 20px;
+    padding: 20px 30px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+/* Search Bar */
+.search-bar {
+    background: #4e4e4e8f;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    color: white;
+    outline: none;
+    width: 200px;
+}
+
+/* Navbar Toggler Custom Icon */
+ .navbar-toggler {
+    border: none;
+    font-size: 24px;
+    color: white;
+    background: transparent;
+}
+.navbar-collapse {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    z-index: 999; /* Ensures it's above other content */
+}
+
+
+/* Profile Section */
+.profile-section {
+    display: flex;
+    align-items: center;
+}
+
+/* Responsive Fixes */
+@media (max-width: 992px) {
+    .search-bar {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .navbar-nav {
+        text-align: center;
+    }
+
+    .profile-section {
+        justify-content: center;
+        width: 100%;
+        margin-top: 10px;
+    }
 }
 
 input {
@@ -81,18 +135,18 @@ input::placeholder {
     color: #ffffffb3;
 }
 
-.navbar-custom .nav-links a {
+nav .navbar-collapse ul li a {
     color: white;
     text-decoration: none;
     margin: 0 15px;
-    padding: 10px 20px;
+    padding: 10px;
     border-radius: 50px;
     font-size: 1.2rem;
     transition: 0.3s;
 }
 
-.navbar-custom .nav-links a:hover {
-    background: #ffffff33;
+nav .navbar-collapse ul li a:hover {
+    color: #2c2c2c;
 }
 
 .profile-section {
@@ -102,8 +156,8 @@ input::placeholder {
 }
 
 .profile-section img {
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
 }
 
@@ -114,17 +168,114 @@ input::placeholder {
 
 }
 
-.dropdown-menu h5 {
+
+.navbar-toggler {
+    border: none;
+    margin-bottom: 10px;
+    background: transparent;
+    padding: 1px;
+    outline: none;
+}
+
+.navbar-toggler-icon {
+    width: 30px;
+    height: 2px;
+    background-color: white;
+    display: block;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.navbar-toggler-icon::before,
+.navbar-toggler-icon::after {
+    content: '';
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    display: block;
+    position: absolute;
+    transition: all 0.3s ease;
+}
+
+.navbar-toggler-icon::before {
+    top: -8px;
+}
+
+.navbar-toggler-icon::after {
+    bottom: -8px;
+}
+
+/* Fix Toggle Behavior */
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
+    background-color: transparent;
+}
+
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::before {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::after {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Ensure Navbar is Visible on Small Screens */
+@media (max-width: 992px) {
+    .navbar-collapse {
+        background: #1f1f1f;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .navbar-nav {
+        text-align: center;
+    }
+}
+
+
+/* Profile Dropdown */
+.dropdown-menu {
+    background-color: #1f1f1fad;
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0px 4px 12px #0000001a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     color: white;
 }
 
-.dropdown-menu h5:hover {
-    color: black;
+.dropdown-menu .dropdown-item {
+    
+    display: flex;
+    text-align: left;
+    
 }
 
-.profile span {
-    color: white;
+.dropdown-menu .dropdown-item img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    border-radius: 50%;
 }
+
+.dropdown-menu .dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Notification Dropdown */
+.bi-bell {
+    background-color: #4e4e4e8f;
+    padding: 10px;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.dropdown-toggle:empty::after {
+    display: none;
+}
+
+
+
 
 .bi-bell {
     background-color: #4e4e4e8f;
@@ -193,7 +344,8 @@ input::placeholder {
     padding: 15px;
     border-radius: 12px;
     margin-bottom: 20px;
-    height: 280px; /* Adjusted height */
+    height: 281px;
+    /* Adjusted height */
 }
 
 .section-title {
@@ -302,13 +454,7 @@ input::placeholder {
     font-size: 14px;
     margin: 0;
 }
-.play-button {
-    background: none;
-    border: none;
-    font-size: 20px;
-    color: #fff;
-    cursor: pointer;
-}
+
 
 
 
@@ -395,7 +541,7 @@ input::placeholder {
 
 .suggested-card img {
     width: 100%;
-    height: 215px;
+    height: 100%;
     object-fit: cover;
     border-radius: 15px;
 }
@@ -427,7 +573,7 @@ p {
     opacity: 0.8;
 }
 
-.play-button {
+.play-buttons {
     background: rgba(255, 255, 255, 0.3);
     border: none;
     color: white;
@@ -439,5 +585,79 @@ p {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    margin-top: 5px;
+    margin: 5px;
+}
+
+
+
+
+
+
+
+.trailer-card {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.video-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: opacity 0.5s ease;
+}
+
+.video-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+
+.video-container {
+    position: relative;
+    
+
+.play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    padding: 20px;
+    cursor: pointer;
+    border-radius: 20%;
+    z-index: 2;
+}
+
+.overlay-content {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: white;
+    z-index: 3;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+}
+
+
+.play-button:hover {
+    background: rgba(0, 0, 0, 0.9);
 }
