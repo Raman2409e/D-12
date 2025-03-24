@@ -84,28 +84,34 @@
                                         <!-- Profile Dropdown -->
                                         <div class="dropdown ms-3">
                                             <a href="#" class="d-block link-light text-decoration-none dropdown-toggle"
-                                                id="profileDropdown" data-toggle="dropdown" aria-expanded="false">
-                                                <img src="./images/pfp.jpg" alt="Profile" class="rounded-circle"
-                                                    width="40" height="40">
+                                                id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <img src="./images/p1.jpg" alt="Profile" class="rounded-circle"
+                                                    width="40" height="40" id="currentProfilePic">
+                                                <span class="text-white" id="currentProfileName">Raman .</span>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-end"
                                                 aria-labelledby="profileDropdown">
-                                                <div class="dropdown-item" onclick="changeProfileName('Raman .')">
-                                                    <img src="./images/pfp.jpg" class="rounded-circle" alt="">
+                                                <div class="dropdown-item profile-option" data-img="./images/p1.jpg"
+                                                    data-name="Raman .">
+                                                    <img src="./images/p1.jpg" class="rounded-circle" alt="">
                                                     <h5>Raman .</h5>
                                                 </div>
                                                 <div class="dropdown-divider"></div>
-                                                <div class="dropdown-item" onclick="changeProfileName('Wajahat')">
-                                                    <img src="./images/pfp.jpg" class="rounded-circle" alt="">
+                                                <div class="dropdown-item profile-option" data-img="./images/p2.jpg"
+                                                    data-name="Wajahat">
+                                                    <img src="./images/p2.jpg" class="rounded-circle" alt="">
                                                     <h5>Wajahat</h5>
                                                 </div>
                                                 <div class="dropdown-divider"></div>
-                                                <div class="dropdown-item" onclick="changeProfileName('Moiz')">
-                                                    <img src="./images/pfp.jpg" class="rounded-circle" alt="">
+                                                <div class="dropdown-item profile-option" data-img="./images/p3.jpg"
+                                                    data-name="Moiz">
+                                                    <img src="./images/p3.jpg" class="rounded-circle" alt="">
                                                     <h5>Moiz</h5>
                                                 </div>
                                             </div>
                                         </div>
+
+
                                     </div>
                                 </div>
                             </nav>
@@ -170,30 +176,30 @@
                                             <h3 class="section-title">Continue Watching</h3>
                                             <div class="watching-list">
                                                 <div class="watching-item mb-1">
-                                                    <img src="./images/pfp.jpg" class="img-fluid rounded"
+                                                    <img src="./images/Jin woo.jpg" class="img-fluid rounded"
                                                         alt="white Season 3">
                                                     <div class="watching-info">
-                                                        <h5>white Season 3</h5>
+                                                        <h5>Solo Leveling</h5>
                                                         <a href="watch.html" class="play-buttons">
                                                             <i class="bi bi-play-fill"></i>
                                                         </a>
                                                     </div>
                                                 </div>
                                                 <div class="watching-item mb-1">
-                                                    <img src="./images/pfp.jpg" class="img-fluid rounded"
+                                                    <img src="./images/ddd.jpg" class="img-fluid rounded"
                                                         alt="white Season 3">
                                                     <div class="watching-info">
-                                                        <h5>white Season 3</h5>
+                                                        <h5>DanDaDan</h5>
                                                         <a href="watch.html" class="play-buttons">
                                                             <i class="bi bi-play-fill"></i>
                                                         </a>
                                                     </div>
                                                 </div>
                                                 <div class="watching-item mb-1">
-                                                    <img src="./images/pfp.jpg" class="img-fluid rounded"
+                                                    <img src="./images/ts.jpg" class="img-fluid rounded"
                                                         alt="white Season 3">
                                                     <div class="watching-info">
-                                                        <h5>white Season 3</h5>
+                                                        <h5>Sakamoto Days</h5>
                                                         <a href="watch.html" class="play-buttons">
                                                             <i class="bi bi-play-fill"></i>
                                                         </a>
@@ -282,7 +288,7 @@
                                                             </button>
                                                         </div>
                                                         <iframe class="trailerVideo" width="100%" height="100%"
-                                                            src="https://www.youtube-nocookie.com/embed/mmXnzutzyh4?controls=1&modestbranding=1&rel=0"
+                                                            src="https://www.youtube.com/embed/IrHTT2IEKpE?si=or46Vnd0JKtZuiFi"
                                                             frameborder="0"
                                                             allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                                             allowfullscreen style="display: none;">
@@ -316,18 +322,18 @@
                                                 <!-- Row 2 -->
                                                 <div class="col-md-4 col-12">
                                                     <div class="suggested-card mb-3 video-container">
-                                                        <img class="trailerThumbnail img-fluid" src="images/anime1.jpg"
+                                                        <img class="trailerThumbnail img-fluid" src="images/ds.jpg"
                                                             alt="Anime Clip 1">
                                                         <div class="overlay">
                                                             <span class="badge">Anime</span>
-                                                            <h4>Anime Clip 1</h4>
+                                                            <h4>Demon Slayer</h4>
                                                             <p>Epic anime scene from popular series.</p>
                                                             <button class="play-button">
                                                                 <i class="bi bi-play-fill"></i>
                                                             </button>
                                                         </div>
                                                         <iframe class="trailerVideo" width="100%" height="100%"
-                                                            src="https://www.youtube-nocookie.com/embed/ELv6NBO75UM?controls=1&modestbranding=1&rel=0"
+                                                            src="https://www.youtube-nocookie.com/embed/q95O1yJzSGE?controls=1&modestbranding=1&rel=0"
                                                             frameborder="0"
                                                             allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                                             allowfullscreen style="display: none;">
@@ -337,18 +343,18 @@
 
                                                 <div class="col-md-4 col-12">
                                                     <div class="suggested-card mb-3 video-container">
-                                                        <img class="trailerThumbnail img-fluid" src="images/anime2.jpg"
+                                                        <img class="trailerThumbnail img-fluid" src="images/ddd.jpg"
                                                             alt="Anime Clip 2">
                                                         <div class="overlay">
                                                             <span class="badge">Fantasy</span>
-                                                            <h4>Anime Clip 2</h4>
+                                                            <h4>DanDaDan</h4>
                                                             <p>Magical battle with stunning animation.</p>
                                                             <button class="play-button">
                                                                 <i class="bi bi-play-fill"></i>
                                                             </button>
                                                         </div>
                                                         <iframe class="trailerVideo" width="100%" height="100%"
-                                                            src="https://www.youtube-nocookie.com/embed/YOUR_ANIME_LINK_HERE?controls=1&modestbranding=1&rel=0"
+                                                            src="https://www.youtube-nocookie.com/embed/iiwOVqGtZj4?controls=1&modestbranding=1&rel=0"
                                                             frameborder="0"
                                                             allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                                             allowfullscreen style="display: none;">
@@ -358,18 +364,18 @@
 
                                                 <div class="col-md-4 col-12">
                                                     <div class="suggested-card mb-3 video-container">
-                                                        <img class="trailerThumbnail img-fluid" src="images/anime3.jpg"
+                                                        <img class="trailerThumbnail img-fluid" src="images/ts.jpg"
                                                             alt="Anime Clip 3">
                                                         <div class="overlay">
                                                             <span class="badge">Thriller</span>
-                                                            <h4>Anime Clip 3</h4>
+                                                            <h4>Sakamoto Days</h4>
                                                             <p>Intense fight sequence.</p>
-                                                            <button class="play-button">
+                                                            <button class="play-button mb-5">
                                                                 <i class="bi bi-play-fill"></i>
                                                             </button>
                                                         </div>
                                                         <iframe class="trailerVideo" width="100%" height="100%"
-                                                            src="https://www.youtube-nocookie.com/embed/YOUR_ANIME_LINK_HERE?controls=1&modestbranding=1&rel=0"
+                                                            src="https://www.youtube-nocookie.com/embed/iiwOVqGtZj4?controls=1&modestbranding=1&rel=0"
                                                             frameborder="0"
                                                             allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                                             allowfullscreen style="display: none;">

@@ -68,3 +68,21 @@ document.addEventListener("DOMContentLoaded", function () {
         button.addEventListener("click", playTrailer);
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const profileOptions = document.querySelectorAll(".profile-option");
+    const profilePic = document.getElementById("currentProfilePic");
+    const profileName = document.getElementById("currentProfileName");
+
+    profileOptions.forEach(option => {
+        option.addEventListener("click", function () {
+            let newImg = this.getAttribute("data-img");
+            let newName = this.getAttribute("data-name");
+
+            profilePic.src = newImg;
+            profileName.textContent = newName;
+        });
+    });
+});
+
+
