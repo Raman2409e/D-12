@@ -1,88 +1,101 @@
-$(document).ready(function () {
-    $('.dropdown-toggle').dropdown();
-});
-
-$(document).ready(function () {
-    $(document).click(function (event) {
-        var clickover = $(event.target);
-        var $navbar = $(".dropdown-menu");
-        var _opened = $navbar.hasClass("show");
-        if (_opened === true && !clickover.hasClass("dropdown-toggle")) {
-            $navbar.removeClass("show");
-        }
-    });
-});
-
-
-$(document).ready(function () {
-    // Ensure dropdowns work properly
-    $('.dropdown-toggle').dropdown();
-
-    // Fix Navbar Toggler on Mobile
-    $('.navbar-toggler').click(function () {
-        var target = $(this).attr("data-target");
-        $(target).collapse('toggle'); // Proper Bootstrap toggle function
-    });
-
-    // Close navbar when clicking outside
-    $(document).click(function (event) {
-        var clickover = $(event.target);
-        var $navbar = $(".navbar-collapse.show");
-        var _opened = $navbar.length > 0;
-        if (_opened === true && !clickover.closest(".navbar").length) {
-            $navbar.collapse('hide'); // Properly close the navbar
-        }
-    });
-});
 document.addEventListener("DOMContentLoaded", function () {
-    // Function to handle play button click
-    function playTrailer(event) {
-        let parent = event.target.closest(".video-container");
-        if (!parent) return;
+    // 🔹 Navbar & Dropdown Functionality
+    $(document).ready(function () {
+        $('.dropdown-toggle').dropdown();
 
-        // Select elements
-        let thumbnail = parent.querySelector("img");
-        let iframe = parent.querySelector("iframe");
-        let playButton = parent.querySelector(".play-button");
-        let overlayContent = parent.querySelector(".overlay-content"); // Main text & buttons
-        let featured = parent.querySelector(".badge-trending"); // Trending badge
-        let suggestionText = parent.closest(".suggested-card")?.querySelector(".overlay"); // Suggestion card text
+        // Close dropdown when clicking outside
+        $(document).click(function (event) {
+            var clickover = $(event.target);
+            var $navbar = $(".dropdown-menu");
+            var _opened = $navbar.hasClass("show");
+            if (_opened === true && !clickover.hasClass("dropdown-toggle")) {
+                $navbar.removeClass("show");
+            }
+        });
 
-        // Hide elements
-        if (featured) featured.style.display = "none";
-        if (overlayContent) overlayContent.style.display = "none";
-        if (suggestionText) suggestionText.style.display = "none";
-        if (thumbnail) thumbnail.style.display = "none";
-        if (playButton) playButton.style.display = "none";
+        // Fix Navbar Toggler on Mobile
+        $('.navbar-toggler').click(function () {
+            var target = $(this).attr("data-target");
+            $(target).collapse('toggle'); // Bootstrap toggle function
+        });
 
-        // Show iframe & autoplay video
-        if (iframe) {
+        // Close navbar when clicking outside
+        $(document).click(function (event) {
+            var clickover = $(event.target);
+            var $navbar = $(".navbar-collapse.show");
+            var _opened = $navbar.length > 0;
+            if (_opened === true && !clickover.closest(".navbar").length) {
+                $navbar.collapse('hide');
+            }
+        });
+    });
+
+    // 🔹 Play & Close Trailer in Video Container
+    document.querySelectorAll(".video-container").forEach(container => {
+        let iframe = container.querySelector("iframe");
+        let thumbnail = container.querySelector("img");
+        let playButton = container.querySelector(".play-button");
+        let overlayContent = container.querySelector(".overlay-content"); // Main text & buttons
+        let featured = container.querySelector(".badge-trending"); // Trending badge
+
+        // Create Close Button
+        let closeButton = document.createElement("button");
+        closeButton.innerText = "✖";
+        closeButton.classList.add("close-iframe");
+        closeButton.style.display = "none"; // Initially hidden
+        container.appendChild(closeButton);
+
+        function playTrailer() {
+            if (!iframe) return;
+
+            // Hide elements
+            overlayContent.style.display = "none";
+            featured.style.display = "none";
+            thumbnail.style.display = "none";
+            playButton.style.display = "none";
             iframe.style.display = "block";
+            closeButton.style.display = "block"; // Show close button
+
+            // Start Video
             let src = iframe.getAttribute("src");
-            iframe.setAttribute("src", src + "&autoplay=1");
+            if (!src.includes("autoplay=1")) {
+                iframe.setAttribute("src", src + "?autoplay=1");
+            }
         }
-    }
 
-    // Attach event listener to all play buttons
-    document.querySelectorAll(".play-button").forEach((button) => {
-        button.addEventListener("click", playTrailer);
+        function closeTrailer() {
+            if (!iframe) return;
+
+            // Hide iframe & close button
+            iframe.style.display = "none";
+            closeButton.style.display = "none";
+
+            // Show back thumbnail & play button
+            thumbnail.style.display = "block";
+            overlayContent.style.display = "block";
+            featured.style.display = "block";
+            playButton.style.display = "block";
+
+            // Stop video by resetting iframe src
+            iframe.setAttribute("src", iframe.getAttribute("src").split("?")[0]);
+        }
+
+        playButton.addEventListener("click", playTrailer);
+        closeButton.addEventListener("click", closeTrailer);
     });
-});
 
-document.addEventListener("DOMContentLoaded", function () {
-    const profileOptions = document.querySelectorAll(".profile-option");
+    // 🔹 Profile Picture & Name Change
+    const profileOptions = document.querySelectorAll(".dropdown-item");
     const profilePic = document.getElementById("currentProfilePic");
     const profileName = document.getElementById("currentProfileName");
 
     profileOptions.forEach(option => {
         option.addEventListener("click", function () {
-            let newImg = this.getAttribute("data-img");
-            let newName = this.getAttribute("data-name");
+            let newImg = this.querySelector("img").src;
+            let newName = this.querySelector("h5").textContent.trim();
 
             profilePic.src = newImg;
             profileName.textContent = newName;
         });
     });
 });
-
-

@@ -74,7 +74,7 @@ body {
 .search-bar {
     background: #3a3a3aa6;
     border: none;
-    padding: 8px 15px;
+    padding: 10px 20px;
     border-radius: 20px;
     color: white;
     outline: none;
@@ -344,7 +344,7 @@ nav .navbar-collapse ul li a:hover {
     padding: 15px;
     border-radius: 12px;
     margin-bottom: 20px;
-    height: 281px;
+    height: 1056;
     /* Adjusted height */
 }
 
@@ -381,8 +381,8 @@ nav .navbar-collapse ul li a:hover {
 
 
 .watching-item img {
-    width: 45px;
-    height: 45px;
+    width: 56px;
+    height: 56px;
     border-radius: 10px;
     margin-right: 10px;
 }
@@ -470,6 +470,7 @@ nav .navbar-collapse ul li a:hover {
 .custom-card img {
     height: 500px;
     object-fit: cover;
+
     width: 100%;
 
 }
@@ -498,7 +499,7 @@ nav .navbar-collapse ul li a:hover {
 }
 
 .tag {
-    background: rgba(255, 255, 255, 0.2);
+    background: #00000033;
     padding: 5px 10px;
     border-radius: 10px;
     margin-right: 5px;
@@ -679,4 +680,23 @@ html {
 
 .dropdown-menu .dropdown-item h5 {
     color:black; /* Dropdown text white */
+}
+.close-iframe {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: black;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 50%;
+    display: none; /* Hidden by default */
+}
+.close-iframe:hover{
+    color: #e2e2e2;
+}
+.dropdown a{ 
+    border-radius:50px;
 }
