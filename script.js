@@ -1,26 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // 🔹 Navbar & Dropdown Functionality
-    $(document).ready(function () {
-        $('.dropdown-toggle').dropdown();
-        $(document).click(function (event) {
-            var clickover = $(event.target);
-            var $navbar = $(".dropdown-menu");
-            var _opened = $navbar.hasClass("show");
-            if (_opened && !clickover.hasClass("dropdown-toggle")) {
-                $navbar.removeClass("show");
-            }
-            var $navCollapse = $(".navbar-collapse.show");
-            if ($navCollapse.length > 0 && !clickover.closest(".navbar").length) {
-                $navCollapse.collapse('hide');
-            }
-        });
-        $('.navbar-toggler').click(function () {
-            var target = $(this).attr("data-target");
-            $(target).collapse('toggle');
-        });
-    });
-
-    // 🔹 Global Elements
     let searchInput = document.getElementById("searchInput");
     let resultsContainer = document.getElementById("searchResults");
     let watchingList = document.querySelector(".watching-list");
@@ -28,20 +6,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 🔹 Collect All Video Containers
     document.querySelectorAll(".video-container").forEach(container => {
-        let titleElement = container.querySelector("h4, h5, .overlay h4, .overlay h5");
+        let titleElement = container.querySelector("h4, h5, .card-title");
         let iframe = container.querySelector("iframe");
         let thumbnail = container.querySelector("img");
         let playButton = container.querySelector(".play-button");
-        let overlay = container.querySelector(".overlay");
+        let overlayContent = container.querySelector(".overlay-content");
+        let overlay = container.querySelector(".overlay")
+        let badgeTrending = container.querySelector(".badge-trending");
 
-        if (titleElement && iframe && thumbnail && playButton && overlay) {
+        if (titleElement && iframe && thumbnail && playButton) {
             let animeData = {
                 title: titleElement.innerText.trim().toLowerCase(),
                 container: container,
+                overlay: overlay,
                 iframe: iframe,
                 thumbnail: thumbnail,
                 playButton: playButton,
-                overlay: overlay,
+                overlayContent: overlayContent,
+                badgeTrending: badgeTrending,
                 originalSrc: iframe.src,
                 imageSrc: thumbnail.src
             };
@@ -51,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // 🔹 Search Functionality
+    // 🔹 Fix Search Bar (Now Works Again)
     searchInput.addEventListener("input", function () {
         let query = this.value.trim().toLowerCase();
         resultsContainer.innerHTML = "";
@@ -67,10 +49,14 @@ document.addEventListener("DOMContentLoaded", function () {
                     let resultItem = document.createElement("div");
                     resultItem.classList.add("search-result-item");
                     resultItem.innerHTML = `<p>${anime.title}</p>`;
+                    
+
                     resultItem.addEventListener("click", function () {
                         playAnime(anime);
                         resultsContainer.classList.remove("show");
+                        searchInput.value = ""; // 🔹 Clear search after selecting
                     });
+
                     resultsContainer.appendChild(resultItem);
                 });
             }
@@ -85,16 +71,22 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // 🔹 Play & Close Trailer in Video Container
+    // 🔹 Play Anime & Hide Elements
     function playAnime(anime) {
         console.log("🎬 Playing:", anime.title);
 
         anime.thumbnail.style.display = "none";
         anime.playButton.style.display = "none";
-        anime.overlay.style.opacity = "0";
+        anime.overlay.style.display = "none";
 
         anime.iframe.src = anime.originalSrc + "?autoplay=1";
         anime.iframe.style.display = "block";
+
+        // Hide title, badge & overlay-content for "Classroom of the Elite"
+        if (anime.title.includes("classroom of the elite")) {
+            if (anime.overlayContent) anime.overlayContent.style.display = "none";
+            if (anime.badgeTrending) anime.badgeTrending.style.display = "none";
+        }
 
         let closeButton = anime.container.querySelector(".close-iframe");
         if (!closeButton) {
@@ -111,6 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
         addToContinueWatching(anime);
     }
 
+    // 🔹 Close Anime & Show Elements
     function closeAnime(anime, closeButton) {
         anime.iframe.src = "";
         setTimeout(() => {
@@ -121,18 +114,36 @@ document.addEventListener("DOMContentLoaded", function () {
         closeButton.style.display = "none";
         anime.thumbnail.style.display = "block";
         anime.playButton.style.display = "block";
-        anime.overlay.style.opacity = "1";
+
+        // Show title, badge & overlay-content for "Classroom of the Elite"
+        if (anime.title.includes("classroom of the elite")) {
+            if (anime.overlayContent) anime.overlayContent.style.display = "block";
+            if (anime.badgeTrending) anime.badgeTrending.style.display = "block";
+        }
     }
 
     function addToContinueWatching(anime) {
         let existingItem = [...watchingList.children].find(item =>
-            item.querySelector("h5").innerText.toLowerCase() === anime.title
+            item.querySelector("h5").innerText === anime.title
         );
 
         if (existingItem) {
             watchingList.prepend(existingItem);
         } else {
-            let newItem = createCustomCard(anime);
+            let newItem = document.createElement("div");
+            newItem.classList.add("watching-item", "mb-1");
+            newItem.innerHTML = `
+                <img src="${anime.imageSrc}" class="img-fluid rounded" alt="${anime.title}">
+                <div class="watching-info">
+                    <h5>${anime.title}</h5>
+                    <a href="#" class="play-buttons"><i class="bi bi-play-fill"></i></a>
+                </div>
+            `;
+
+            newItem.querySelector(".play-buttons").addEventListener("click", function () {
+                playAnime(anime);
+            });
+
             watchingList.prepend(newItem);
 
             if (watchingList.children.length > 3) {
@@ -140,8 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     }
-
-    // 🔹 Custom Card Component
+    // 🔹 Custom Card Component (For "Continue Watching")
     function createCustomCard(anime) {
         let newItem = document.createElement("div");
         newItem.classList.add("custom-card", "watching-item", "mb-1");
@@ -153,37 +163,32 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
         `;
 
-        newItem.querySelector(".play-buttons").addEventListener("click", function () {
-            playAnime(anime);
+        newItem.querySelector(".play-buttons").addEventListener("click", function (event) {
+            event.preventDefault();
+            let matchedAnime = videoContainers.find(a => a.title === anime.title);
+            if (matchedAnime) {
+                playAnime(matchedAnime);
+            } else {
+                console.log("❌ No matching anime found for", anime.title);
+            }
         });
 
         return newItem;
     }
 
-    // 🔹 Apply Custom Card Play Button Logic
-    document.querySelectorAll(".custom-card .play-buttons").forEach(button => {
-        button.addEventListener("click", function () {
-            let cardTitle = this.closest(".custom-card").querySelector("h4, h5").innerText.trim().toLowerCase();
+    // 🔹 Fix "Continue Watching" Play Button (Opens Iframe)
+    document.addEventListener("click", function (event) {
+        let button = event.target.closest(".watching-item .play-buttons");
+        if (button) {
+            event.preventDefault();
+            let cardTitle = button.closest(".watching-item").querySelector("h5").innerText.trim().toLowerCase();
             let matchedAnime = videoContainers.find(a => a.title.toLowerCase() === cardTitle);
 
             if (matchedAnime) {
                 playAnime(matchedAnime);
-                addToContinueWatching(matchedAnime);
             } else {
                 console.log("❌ No matching anime found for", cardTitle);
             }
-        });
-    });
-
-    // 🔹 Profile Picture & Name Change
-    const profileOptions = document.querySelectorAll(".dropdown-item");
-    const profilePic = document.getElementById("currentProfilePic");
-    const profileName = document.getElementById("currentProfileName");
-
-    profileOptions.forEach(option => {
-        option.addEventListener("click", function () {
-            profilePic.src = this.querySelector("img").src;
-            profileName.textContent = this.querySelector("h5").textContent.trim();
-        });
+        }
     });
 });
