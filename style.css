@@ -70,16 +70,7 @@ body {
     justify-content: space-between;
 }
 
-/* Search Bar */
-.search-bar {
-    background: #3a3a3aa6;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    color: white;
-    outline: none;
-    width: 200px;
-}
+
 
 /* Navbar Toggler Custom Icon */
  .navbar-toggler {
@@ -699,4 +690,67 @@ html {
 }
 .dropdown a{ 
     border-radius:50px;
+}
+/* Search Bar */
+.search-bar {
+    background: #3a3a3aa6;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    color: white;
+    outline: none;
+    width: 200px;
+}
+/* Style the search bar */
+/* Ensure search container is positioned correctly */
+.search-container {
+    position: relative; /* Allows absolute positioning inside */
+    display: inline-block; /* Ensures search bar and results are aligned */
+    width: 200px; /* Match the search bar width */
+}
+
+/* Style the search bar */
+.search-bar {
+    background: #3a3a3aa6; /* Dark semi-transparent background */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    color: white;
+    outline: none;
+    width: 100%; /* Match parent width */
+}
+
+/* Style the search results dropdown */
+.search-results {
+    position: absolute;
+    top: 100%; /* Places results right below the search bar */
+    left: 0;
+    width: 100%; /* Matches search bar width */
+    background: #3a3a3aa6; /* Same as search bar */
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 5px;
+    z-index: 1000;
+    max-height: 200px; /* Prevents it from getting too big */
+    overflow-y: auto;
+    display: none; /* Hidden by default */
+}
+
+/* Each result item */
+.search-result-item {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+/* Hover effect */
+.search-result-item:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Show results when there are results */
+.search-results.show {
+    display: block;
 }

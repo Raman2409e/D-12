@@ -2,86 +2,177 @@ document.addEventListener("DOMContentLoaded", function () {
     // 🔹 Navbar & Dropdown Functionality
     $(document).ready(function () {
         $('.dropdown-toggle').dropdown();
-
-        // Close dropdown when clicking outside
         $(document).click(function (event) {
             var clickover = $(event.target);
             var $navbar = $(".dropdown-menu");
             var _opened = $navbar.hasClass("show");
-            if (_opened === true && !clickover.hasClass("dropdown-toggle")) {
+            if (_opened && !clickover.hasClass("dropdown-toggle")) {
                 $navbar.removeClass("show");
             }
+            var $navCollapse = $(".navbar-collapse.show");
+            if ($navCollapse.length > 0 && !clickover.closest(".navbar").length) {
+                $navCollapse.collapse('hide');
+            }
         });
-
-        // Fix Navbar Toggler on Mobile
         $('.navbar-toggler').click(function () {
             var target = $(this).attr("data-target");
-            $(target).collapse('toggle'); // Bootstrap toggle function
-        });
-
-        // Close navbar when clicking outside
-        $(document).click(function (event) {
-            var clickover = $(event.target);
-            var $navbar = $(".navbar-collapse.show");
-            var _opened = $navbar.length > 0;
-            if (_opened === true && !clickover.closest(".navbar").length) {
-                $navbar.collapse('hide');
-            }
+            $(target).collapse('toggle');
         });
     });
 
-    // 🔹 Play & Close Trailer in Video Container
+    // 🔹 Global Elements
+    let searchInput = document.getElementById("searchInput");
+    let resultsContainer = document.getElementById("searchResults");
+    let watchingList = document.querySelector(".watching-list");
+    let videoContainers = [];
+
+    // 🔹 Collect All Video Containers
     document.querySelectorAll(".video-container").forEach(container => {
+        let titleElement = container.querySelector("h4, h5, .overlay h4, .overlay h5");
         let iframe = container.querySelector("iframe");
         let thumbnail = container.querySelector("img");
         let playButton = container.querySelector(".play-button");
-        let overlayContent = container.querySelector(".overlay-content"); // Main text & buttons
-        let featured = container.querySelector(".badge-trending"); // Trending badge
+        let overlay = container.querySelector(".overlay");
 
-        // Create Close Button
-        let closeButton = document.createElement("button");
-        closeButton.innerText = "✖";
-        closeButton.classList.add("close-iframe");
-        closeButton.style.display = "none"; // Initially hidden
-        container.appendChild(closeButton);
+        if (titleElement && iframe && thumbnail && playButton && overlay) {
+            let animeData = {
+                title: titleElement.innerText.trim().toLowerCase(),
+                container: container,
+                iframe: iframe,
+                thumbnail: thumbnail,
+                playButton: playButton,
+                overlay: overlay,
+                originalSrc: iframe.src,
+                imageSrc: thumbnail.src
+            };
 
-        function playTrailer() {
-            if (!iframe) return;
+            videoContainers.push(animeData);
+            playButton.addEventListener("click", () => playAnime(animeData));
+        }
+    });
 
-            // Hide elements
-            overlayContent.style.display = "none";
-            featured.style.display = "none";
-            thumbnail.style.display = "none";
-            playButton.style.display = "none";
-            iframe.style.display = "block";
-            closeButton.style.display = "block"; // Show close button
+    // 🔹 Search Functionality
+    searchInput.addEventListener("input", function () {
+        let query = this.value.trim().toLowerCase();
+        resultsContainer.innerHTML = "";
 
-            // Start Video
-            let src = iframe.getAttribute("src");
-            if (!src.includes("autoplay=1")) {
-                iframe.setAttribute("src", src + "?autoplay=1");
+        if (query.length > 2) {
+            let filteredResults = videoContainers.filter(anime => anime.title.includes(query));
+
+            if (filteredResults.length === 0) {
+                resultsContainer.classList.remove("show");
+            } else {
+                resultsContainer.classList.add("show");
+                filteredResults.forEach(anime => {
+                    let resultItem = document.createElement("div");
+                    resultItem.classList.add("search-result-item");
+                    resultItem.innerHTML = `<p>${anime.title}</p>`;
+                    resultItem.addEventListener("click", function () {
+                        playAnime(anime);
+                        resultsContainer.classList.remove("show");
+                    });
+                    resultsContainer.appendChild(resultItem);
+                });
+            }
+        } else {
+            resultsContainer.classList.remove("show");
+        }
+    });
+
+    document.addEventListener("click", function (event) {
+        if (!searchInput.contains(event.target) && !resultsContainer.contains(event.target)) {
+            resultsContainer.classList.remove("show");
+        }
+    });
+
+    // 🔹 Play & Close Trailer in Video Container
+    function playAnime(anime) {
+        console.log("🎬 Playing:", anime.title);
+
+        anime.thumbnail.style.display = "none";
+        anime.playButton.style.display = "none";
+        anime.overlay.style.opacity = "0";
+
+        anime.iframe.src = anime.originalSrc + "?autoplay=1";
+        anime.iframe.style.display = "block";
+
+        let closeButton = anime.container.querySelector(".close-iframe");
+        if (!closeButton) {
+            closeButton = document.createElement("button");
+            closeButton.innerText = "✖";
+            closeButton.classList.add("close-iframe");
+            anime.container.appendChild(closeButton);
+            closeButton.addEventListener("click", function () {
+                closeAnime(anime, closeButton);
+            });
+        }
+        closeButton.style.display = "block";
+
+        addToContinueWatching(anime);
+    }
+
+    function closeAnime(anime, closeButton) {
+        anime.iframe.src = "";
+        setTimeout(() => {
+            anime.iframe.src = anime.originalSrc;
+        }, 100);
+
+        anime.iframe.style.display = "none";
+        closeButton.style.display = "none";
+        anime.thumbnail.style.display = "block";
+        anime.playButton.style.display = "block";
+        anime.overlay.style.opacity = "1";
+    }
+
+    function addToContinueWatching(anime) {
+        let existingItem = [...watchingList.children].find(item =>
+            item.querySelector("h5").innerText.toLowerCase() === anime.title
+        );
+
+        if (existingItem) {
+            watchingList.prepend(existingItem);
+        } else {
+            let newItem = createCustomCard(anime);
+            watchingList.prepend(newItem);
+
+            if (watchingList.children.length > 3) {
+                watchingList.removeChild(watchingList.lastElementChild);
             }
         }
+    }
 
-        function closeTrailer() {
-            if (!iframe) return;
+    // 🔹 Custom Card Component
+    function createCustomCard(anime) {
+        let newItem = document.createElement("div");
+        newItem.classList.add("custom-card", "watching-item", "mb-1");
+        newItem.innerHTML = `
+            <img src="${anime.imageSrc}" class="img-fluid rounded" alt="${anime.title}">
+            <div class="watching-info">
+                <h5>${anime.title}</h5>
+                <a href="#" class="play-buttons"><i class="bi bi-play-fill"></i></a>
+            </div>
+        `;
 
-            // Hide iframe & close button
-            iframe.style.display = "none";
-            closeButton.style.display = "none";
+        newItem.querySelector(".play-buttons").addEventListener("click", function () {
+            playAnime(anime);
+        });
 
-            // Show back thumbnail & play button
-            thumbnail.style.display = "block";
-            overlayContent.style.display = "block";
-            featured.style.display = "block";
-            playButton.style.display = "block";
+        return newItem;
+    }
 
-            // Stop video by resetting iframe src
-            iframe.setAttribute("src", iframe.getAttribute("src").split("?")[0]);
-        }
+    // 🔹 Apply Custom Card Play Button Logic
+    document.querySelectorAll(".custom-card .play-buttons").forEach(button => {
+        button.addEventListener("click", function () {
+            let cardTitle = this.closest(".custom-card").querySelector("h4, h5").innerText.trim().toLowerCase();
+            let matchedAnime = videoContainers.find(a => a.title.toLowerCase() === cardTitle);
 
-        playButton.addEventListener("click", playTrailer);
-        closeButton.addEventListener("click", closeTrailer);
+            if (matchedAnime) {
+                playAnime(matchedAnime);
+                addToContinueWatching(matchedAnime);
+            } else {
+                console.log("❌ No matching anime found for", cardTitle);
+            }
+        });
     });
 
     // 🔹 Profile Picture & Name Change
@@ -91,11 +182,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     profileOptions.forEach(option => {
         option.addEventListener("click", function () {
-            let newImg = this.querySelector("img").src;
-            let newName = this.querySelector("h5").textContent.trim();
-
-            profilePic.src = newImg;
-            profileName.textContent = newName;
+            profilePic.src = this.querySelector("img").src;
+            profileName.textContent = this.querySelector("h5").textContent.trim();
         });
     });
 });

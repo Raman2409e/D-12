@@ -50,8 +50,13 @@
                                         <span class="navbar-toggler-icon"></span>
                                     </button>
 
-                                    <!-- Search Bar -->
-                                    <input class="search-bar col-md-2" type="search" placeholder="Search anime..">
+                                    <div class="search-container">
+                                        <input id="searchInput" class="search-bar" type="search"
+                                            placeholder="Search anime..">
+                                        <div id="searchResults" class="search-results"></div>
+                                    </div>
+
+
 
                                     <!-- Navbar Links -->
                                     <div class="collapse navbar-collapse col-md-7" id="navbarNav">
@@ -82,8 +87,9 @@
                                         </div>
 
                                         <!-- Profile Dropdown -->
-                                        <div  class="dropdown ms-3 ">
-                                            <a style="background: #3a3a3aa6;" href="#" class="d-block p-2 link-light text-decoration-none dropdown-toggle"
+                                        <div class="dropdown ms-3 ">
+                                            <a style="background: #3a3a3aa6;" href="#"
+                                                class="d-block p-2 link-light text-decoration-none dropdown-toggle"
                                                 id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <img loading="lazy" src="./images/p1.jpg" alt="Profile"
                                                     class="rounded-circle" width="40" height="40"
@@ -235,9 +241,12 @@
                                                         <span class="tag">Animation</span>
                                                         <span class="tag">Mastermind</span>
                                                     </div>
-                                                    <h5 id="title" class="card-title text-dark">Classroom of the Elite</h5>
-                                                    <p class="card-text text-dark">Whole school are the pawns of <strong>Ayanokoji
-                                                            Kiyotaka</strong></p>
+                                                    <h5 id="title" class="card-title text-dark">Classroom of the Elite
+                                                    </h5>
+                                                    <p class="card-text text-dark">Whole school are the pawns of
+                                                        <strong>Ayanokoji
+                                                            Kiyotaka</strong>
+                                                    </p>
                                                     <div class="buttons">
 
 
