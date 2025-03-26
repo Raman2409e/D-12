@@ -109,6 +109,9 @@ document.addEventListener("DOMContentLoaded", function () {
         setTimeout(() => {
             anime.iframe.src = anime.originalSrc;
         }, 100);
+        anime.thumbnail.style.display = "block";
+        anime.playButton.style.display = "block";
+        anime.overlay.style.display = "block";
 
         anime.iframe.style.display = "none";
         closeButton.style.display = "none";
