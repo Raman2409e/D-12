@@ -1,13 +1,14 @@
-*{
+* {
     font-family: 'Kanit', sans-serif;
 }
+
 body {
     background-image: url(./images/bg.jpg);
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    
-    
+
+
 }
 
 .container-fluid {
@@ -73,18 +74,20 @@ body {
 
 
 /* Navbar Toggler Custom Icon */
- .navbar-toggler {
+.navbar-toggler {
     border: none;
     font-size: 24px;
     color: white;
     background: transparent;
 }
+
 .navbar-collapse {
     position: absolute;
     top: 100%;
     left: 0;
     width: 100%;
-    z-index: 999; /* Ensures it's above other content */
+    z-index: 999;
+    /* Ensures it's above other content */
 }
 
 
@@ -149,7 +152,7 @@ nav .navbar-collapse ul li a:hover {
 .profile-section img {
     width: 60px;
     height: 60px;
-    border-radius: 50%;
+
 }
 
 .profile {
@@ -223,110 +226,7 @@ nav .navbar-collapse ul li a:hover {
 }
 
 
-/* Profile Dropdown */
-.dropdown-menu {
-    background-color: #1f1f1fad;
-    width: 100%;
-    border-radius: 15px;
-    box-shadow: 0px 4px 12px #0000001a;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: white;
-}
 
-.dropdown-menu .dropdown-item {
-    
-    display: flex;
-    text-align: left;
-    
-}
-
-.dropdown-menu .dropdown-item img {
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
-    border-radius: 50%;
-}
-
-.dropdown-menu .dropdown-item:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
-/* Notification Dropdown */
-.bi-bell {
-    background-color: #4e4e4e8f;
-    padding: 10px;
-    border-radius: 50%;
-    color: white;
-    font-size: 1.2rem;
-    cursor: pointer;
-}
-
-.dropdown-toggle:empty::after {
-    display: none;
-}
-
-
-
-
-.bi-bell {
-    background-color: #4e4e4e8f;
-    padding: 10px 10px;
-    border-radius: 20px;
-    color: white;
-    font-size: 1.2rem;
-
-}
-
-.dropdown-toggle:empty::after {
-    margin-left: 50px;
-}
-
-.dropdown-menu {
-    width: 100%;
-    border-radius: 20px;
-    box-shadow: 0px 4px 12px #0000001a;
-
-}
-
-.dropdown-header {
-    font-weight: bold;
-    padding: 10px 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.dropdown-header a {
-    font-size: 18px;
-    text-decoration: none;
-
-}
-
-.notification-item {
-    display: flex;
-    align-items: center;
-    padding: 10px 15px;
-    border-bottom: 1px solid #eee;
-}
-
-.notification-item img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-}
-
-.notification-item .text {
-    font-size: 14px;
-}
-
-.notification-item small {
-    color: #b3b3b3;
-}
-
-.notification-item:hover {
-    background-color: #f8f9fa;
-}
 
 
 
@@ -503,6 +403,7 @@ nav .navbar-collapse ul li a:hover {
     font-size: 16px;
     transition: 0.3s;
 }
+
 .suggested-card {
     position: relative;
     border-radius: 15px;
@@ -631,11 +532,13 @@ iframe {
 .play-button:hover {
     background: rgba(0, 0, 0, 0.9);
 }
-.side{
+
+.side {
     position: sticky;
     top: 0;
     right: 0;
 }
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
@@ -664,14 +567,17 @@ html {
 }
 
 #currentProfileName {
-    color: white; /* Profile Name White */
+    color: white;
+    /* Profile Name White */
     margin-left: 8px;
-    
+
 }
 
 .dropdown-menu .dropdown-item h5 {
-    color:black; /* Dropdown text white */
+    color: black;
+    /* Dropdown text white */
 }
+
 .close-iframe {
     position: absolute;
     top: 10px;
@@ -683,14 +589,18 @@ html {
     cursor: pointer;
     font-size: 18px;
     border-radius: 50%;
-    display: none; /* Hidden by default */
+    display: none;
+    /* Hidden by default */
 }
-.close-iframe:hover{
+
+.close-iframe:hover {
     color: #e2e2e2;
 }
-.dropdown a{ 
-    border-radius:50px;
+
+.dropdown a {
+    border-radius: 50px;
 }
+
 /* Search Bar */
 .search-bar {
     background: #3a3a3aa6;
@@ -701,46 +611,57 @@ html {
     outline: none;
     width: 200px;
 }
+
 /* Style the search bar */
 /* Ensure search container is positioned correctly */
 .search-container {
-    position: relative; /* Allows absolute positioning inside */
-    display: inline-block; /* Ensures search bar and results are aligned */
-    width: 200px; /* Match the search bar width */
+    position: relative;
+    /* Allows absolute positioning inside */
+    display: inline-block;
+    /* Ensures search bar and results are aligned */
+    width: 200px;
+    /* Match the search bar width */
 }
 
 /* Style the search bar */
 .search-bar {
-    background: #3a3a3aa6; /* Dark semi-transparent background */
+    background: #3a3a3aa6;
+    /* Dark semi-transparent background */
     border: none;
     padding: 10px 20px;
     border-radius: 20px;
     color: white;
     outline: none;
-    width: 100%; /* Match parent width */
+    width: 100%;
+    /* Match parent width */
 }
 
 /* Style the search results dropdown */
 .search-results {
     position: absolute;
-    top: 100%; /* Places results right below the search bar */
+    top: 100%;
+    /* Places results right below the search bar */
     left: 0;
-    width: 100%; /* Matches search bar width */
-    background: #3a3a3aa6; /* Same as search bar */
+    width: 100%;
+    /* Matches search bar width */
+    background: #3a3a3aa6;
+    /* Same as search bar */
     color: white;
     padding: 10px;
     border-radius: 10px;
     margin-top: 5px;
     z-index: 1000;
-    max-height: 200px; /* Prevents it from getting too big */
+    max-height: 200px;
+    /* Prevents it from getting too big */
     overflow-y: auto;
-    display: none; /* Hidden by default */
+    display: none;
+    /* Hidden by default */
 }
 
 /* Each result item */
 .search-result-item {
     padding: 10px;
-    
+
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     cursor: pointer;
     transition: background 0.2s;
@@ -754,4 +675,115 @@ html {
 /* Show results when there are results */
 .search-results.show {
     display: block;
+}
+
+.profile-container {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.profile-container img {
+
+    width: 100%;
+    border-radius: 15px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.profile-container h2 {
+    margin-top: 10px;
+    font-size: 22px;
+
+}
+
+.dropdown-container {
+    margin-top: 20px;
+
+    position: relative;
+}
+
+select {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    padding: 10px 15px;
+    font-size: 18px;
+    color: #fff;
+    border-radius: 8px;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+select:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+select option {
+    background: #1e1e2f;
+    color: #fff;
+}
+
+.notification-container {
+    position: relative;
+}
+
+.bell-icon {
+    font-size: 24px;
+    cursor: pointer;
+    position: relative;
+    padding: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: 0.3s ease;
+}
+
+.bell-icon:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.notification-badge {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: red;
+    color: white;
+    font-size: 5px;
+    font-weight: bold;
+    padding: 5px 8px;
+    border-radius: 50%;
+}
+
+.dropdown-menu {
+    width: 280px;
+    background: #2c2c3a;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    color: white;
+}
+
+.dropdown-item {
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dropdown-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.notif-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #ffcc00;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #1e1e2f;
 }

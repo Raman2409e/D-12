@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     let resultItem = document.createElement("div");
                     resultItem.classList.add("search-result-item");
                     resultItem.innerHTML = `<p>${anime.title}</p>`;
-                    
+
 
                     resultItem.addEventListener("click", function () {
                         playAnime(anime);
@@ -192,3 +192,39 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+// Profile images ke URLs. Yahan placeholder images ka use kiya gaya hai.
+const profiles = {
+    raman: {    
+      image: "images/p1.jpg"
+    },
+    wajahat: { 
+      image: "images/p2.jpg"
+    },
+    moiz: {
+       image: "images/p3.jpg"
+    }
+  };
+
+const profileDropdown = document.getElementById('profileDropdown');
+const profileDisplay = document.getElementById('profileDisplay');
+
+profileDropdown.addEventListener('change', function () {
+    const selectedProfile = this.value;
+    if (!selectedProfile) {
+        profileDisplay.innerHTML = `
+        <img src="https://via.placeholder.com/120?text=User" alt="Default Profile">
+       
+      `;
+        return;
+    }
+
+    const profile = profiles[selectedProfile];
+
+    profileDisplay.innerHTML = `
+      <img src="${profile.image}" alt="${profile.name} Profile Picture">
+
+    `;
+
+});
+
