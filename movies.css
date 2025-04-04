@@ -16,11 +16,10 @@
 
 .slider-img {
   flex: 0 0 auto;
-  width: 300px;
+  width: 100%;
   border-radius: 15px;
   overflow: hidden;
   position: relative;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   transition: transform 0.3s ease;
   cursor: pointer;
 }
@@ -36,7 +35,7 @@
 .slider-img h1 {
   position: absolute;
   bottom: 10px;
-  left: 10px;
+  left: 20px;
   color: white;
   font-size: 1.5rem;
   text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
